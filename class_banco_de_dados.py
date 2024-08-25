@@ -19,6 +19,7 @@ class Tabela_socios:
             criar_tabela = """CREATE TABLE SOCIOS(
                             ID INTEGER PRIMARY KEY,
                             NOME TEXT,
+                            DATA_DE_NASCIMENTO TEXT,
                             CPF VARCHAR(15) UNIQUE,
                             RG VARCHAR(20) UNIQUE,
                             NIT VARCHAR(20) UNIQUE,
@@ -39,12 +40,12 @@ class Tabela_socios:
             print("Tabela criada")
             
     #Inserir dados na tabela
-    def InsertDados_socios(conexao,id,nome,cpf,rg,nit,cei,email,telefone,cidade,bairro,numero,complemento):
+    def InsertDados_socios(conexao,id,nome,data_nascimento,cpf,rg,nit,cei,email,telefone,cidade,bairro,numero,complemento):
         try:
             
             inserir_dados = """INSERT INTO SOCIOS 
-                (ID,NOME,CPF,RG,NIT,CEI,EMAIL,TELEFONE,CIDADE,BAIRRO,NUMERO,COMPLEMENTO)
-            VALUES('"""+id+"""','"""+nome+"""','"""+cpf+"""','"""+rg+"""','"""+nit+"""','"""+cei+"""','"""+email+"""','"""+telefone+"""','"""+cidade+"""','"""+bairro+"""','"""+numero+"""','"""+complemento+"""')
+                (ID,NOME,DATA_DE_NASCIMENTO,CPF,RG,NIT,CEI,EMAIL,TELEFONE,CIDADE,BAIRRO,NUMERO,COMPLEMENTO)
+            VALUES('"""+id+"""','"""+nome+"""','"""+data_nascimento+"""','"""+cpf+"""','"""+rg+"""','"""+nit+"""','"""+cei+"""','"""+email+"""','"""+telefone+"""','"""+cidade+"""','"""+bairro+"""','"""+numero+"""','"""+complemento+"""')
             """
             
             cursor = conexao.cursor()
@@ -53,8 +54,8 @@ class Tabela_socios:
         except Error as ex:
             print("Erro ao inserir os dados!")
             print(ex)
-        finally:
-            print("Dados cadastrados")
+        #finally:
+            #print("Dados cadastrados")
     #Excluir Dados
     def ClearDados_socios(conexao, id_pessoa):
         try:
@@ -67,12 +68,13 @@ class Tabela_socios:
             print("Erro ao excluir os dados!")
             print(ex)
         finally:
-            print("Dados deletados")
+            print(f"Socio {id_pessoa} deletado")
 
     #Alterar Dados
-    def UpdateDados_NOME_socios(conexao, id_pessoa):
+    def UpdateDados_socios(conexao, id_pessoa, dado, update):
         try:
-            update_dados = """UPDATE SOCIOS SET NOME='RAPHAEL' WHERE ID="""+id_pessoa+""""""
+            up_dados = dado.upper()
+            update_dados = f"""UPDATE SOCIOS SET '{up_dados}'='{update}' WHERE ID="""+id_pessoa+""""""
             cursor = conexao.cursor()
             cursor.execute(update_dados)
             conexao.commit()
@@ -80,142 +82,35 @@ class Tabela_socios:
             print("Erro ao atualizar os dados!")
             print(ex)
         finally:
-            print("Nome atualizado")
-            
-    def UpdateDados_CPF_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET CPF='109.378.665-55' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("CPF atualizado")
-    
-    def UpdateDados_RG_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET RG='22.5785.444-48' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("RG atualizado")
-    
-    def UpdateDados_NIT_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET NIT='11.444.858-50' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("NIT atualizado")
-    
-    def UpdateDados_CEI_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET CEI='999.874.4111-45' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("CEI atualizado")
-            
-    def UpdateDados_EMAIL_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET EMAIL='batistaraphael@gmail.com' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("EMAIL atualizado")
-    
-    def UpdateDados_TELEFONE_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET TELEFONE='(75) 98886-0451' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("TELEFONE atualizado")
-
-    def UpdateDados_CIDADE_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET CIDADE='Cruz das Almas' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("CIDADE atualizado")
-    
-    def UpdateDados_BAIRRO_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET BAIRRO='inocoop' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("BAIRRO atualizado")
-    
-    def UpdateDados_NUMERO_socios(conexao, id_pessoa):
-        try:
-            update_dados = """UPDATE SOCIOS SET NUMERO='35' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("NUMERO atualizado")
-
-    def UpdateDados_COMPLEMENTO_socios(conexao, id_pessoa):  
-        try:
-            update_dados = """UPDATE SOCIOS SET COMPLEMENTO='Casa' WHERE ID="""+id_pessoa+""""""
-            cursor = conexao.cursor()
-            cursor.execute(update_dados)
-            conexao.commit()
-        except Error as ex:
-            print("Erro ao atualizar os dados!")
-            print(ex)
-        finally:
-            print("COMPLEMENTO atualizado")
-    
+            print(f"{dado} atualizado")
+     
     #Selecionar Dados
-    def SelectDados_socios(conexao,id_pessoa):
+    def SelectDados_socio(conexao,id_pessoa):
     
         select_dados = """SELECT * FROM SOCIOS WHERE ID="""+id_pessoa+""""""
         cursor = conexao.cursor()
         cursor.execute(select_dados)
         resultado = cursor.fetchall()
+        print(f"Dados do id {id_pessoa}: ")
+        for linha in resultado:
+            print(linha)
+        return resultado #Necessario printar
+    def SelectTodosDados_socios(conexao):
+    
+        select_dados = """SELECT * FROM SOCIOS"""
+        cursor = conexao.cursor()
+        cursor.execute(select_dados)
+        resultado = cursor.fetchall()
+        print("Dados da tabela 'Socios': ")
+        for linha in resultado:
+            print(linha)
         return resultado #Necessario printar
 
 class Tabela_Anos(Tabela_socios):
-    #subistituir '2024' por uma variavel para que assim nao necessitar da repedição do codigo para cada ano
-    def CriaTabela_2024(conexao):
+
+    def CriaTabela_ano(conexao, ano):
         try:
-            criar_tabela = """CREATE TABLE IF NOT EXISTS '2024' (
+            criar_tabela = f"""CREATE TABLE IF NOT EXISTS '{ano}' (
                             Socio_id INTEGER PRIMARY KEY,
                             JANEIRO TEXT,
                             FEVEREIRO TEXT,
@@ -231,54 +126,128 @@ class Tabela_Anos(Tabela_socios):
                             DEZEMBRO TEXT,
                             FOREIGN KEY (Socio_id) REFERENCES SOCIOS(id)
                             )"""
-                            
             cursor = conexao.cursor()  
             cursor.execute(criar_tabela) 
-            print("Tabela criada")
-        except Error as ex:
+            print(f"Tabela '{ano}' criada")
+        except Exception as ex:
             print("Erro ao criar tabela!")
             print(ex)
     
     
-    def InsertDados_2024(conexao, socio_id):
+    def InsertDados_ano(conexao, socio_id, ano):
         try:
-            inserir_dados = """INSERT INTO '2024' 
+            inserir_dados = f"""INSERT INTO '{ano}' 
                 (Socio_id, JANEIRO, FEVEREIRO, MARÇO, ABRIL, MAIO, JUNHO, JULHO, AGOSTO, SETEMBRO, OUTUBRO, NOVEMBRO, DEZEMBRO)
                 VALUES (?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)"""
             cursor = conexao.cursor()
             cursor.execute(inserir_dados, (socio_id,))
             conexao.commit()    
-            print("Dados cadastrados")
-        except Error as ex:
+            print(f"Dados cadastrados na tabela '{ano}'")
+        except Exception as ex:
             print("Erro ao inserir os dados!")
             print(ex)
             
-    def VisualizarDados_2024(conexao):
+    def SelectTodosDados_ano(conexao, ano):
         try:
-            consulta = "SELECT * FROM '2024'"
+            consulta = f"SELECT * FROM '{ano}'"
             cursor = conexao.cursor()
             cursor.execute(consulta)
             linhas = cursor.fetchall()
             
-            print("Dados da tabela '2024':")
+            print(f"Dados da tabela '{ano}':")
             for linha in linhas:
                 print(linha)
-        except Error as ex:
+        except Exception as ex:
             print("Erro ao visualizar os dados!")
             print(ex)
+        
+    def SelectIdDados_ano(conexao, ano,socio_id):
+        try:
+            consulta = f"SELECT * FROM '{ano}' WHERE Socio_id={socio_id}"
+            cursor = conexao.cursor()
+            cursor.execute(consulta)
+            linhas = cursor.fetchall()
             
-    
+            print(f"Dados do socios '{socio_id}' do ano '{ano}':")
+            for linha in linhas:
+                print(linha)
+        except Exception as ex:
+            print("Erro ao visualizar os dados!")
+            print(ex)
+        
+    def UpdateDados_ano(conexao, ano, id_socio, **meses_valores):
+        try:
+            # Criar string de colunas a serem atualizadas
+            colunas = ', '.join([f"{mes} = ?" for mes in meses_valores.keys()])
+            valores = list(meses_valores.values())
+            valores.append(id_socio)
+
+            update_dados = f"""UPDATE '{ano}' 
+                               SET {colunas} 
+                               WHERE Socio_id = ?"""
+                               
+            cursor = conexao.cursor()
+            cursor.execute(update_dados, valores)
+            conexao.commit()
+            print(f"Tabela '{ano}' atualizada para o sócio ID {id_socio}")
+        except Exception as ex:
+            print("Erro ao atualizar os dados!")
+            print(ex)
+            
+    def MesesComNull(conexao, ano, socio_id):
+        try:
+            # Lista de todos os meses
+            meses = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", 
+                    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"]
+            
+            # Consulta para buscar os valores dos meses para o sócio específico
+            consulta = f"SELECT {', '.join(meses)} FROM '{ano}' WHERE Socio_id = ?"
+            
+            cursor = conexao.cursor()
+            cursor.execute(consulta, (socio_id,))
+            resultado = cursor.fetchone()
+            
+            if resultado:
+                # Verificar quais meses têm valor NULL
+                meses_com_null = [mes for mes, valor in zip(meses, resultado) if valor is None]
+                return meses_com_null
+            else:
+                print(f"Não foram encontrados dados para o socio_id {socio_id} na tabela '{ano}'.")
+                return []
+        except Exception as ex:
+            print("Erro ao buscar meses com valores NULL!")
+            print(ex)
+            return []
+
+#sempre usar aspas simples nos 
+'''
 #testes
-test_conect = Tabela_socios.ConecaoBanco()
-#test_tabela = Banco_de_Dados.CriaTabela(test_conect)
-#test_insert = Banco_de_Dados.InsertDados(test_conect, '200','ph','999999999','5555555555','888888888','1111111111','ph1@gmail.com','(75)99999997','Maragogo','RUA DO RIO','05','casa')
-#test_clear = Banco_de_Dados.ClearDados(test_conect, '201')
-#test_updade = Banco_de_Dados.UpdateDados_NOME(test_conect, '201')
-#test_select = Banco_de_Dados.SelectDados(test_conect, '201'), print(test_select)
-#test_pagamento = Tabela_Anos.CriaTabela_2024(test_conect)
-test_pagamento_insert = Tabela_Anos.InsertDados_2024(test_conect,'201')
-test_pagamento_visualizar = Tabela_Anos.VisualizarDados_2024(test_conect)
+conexao = Tabela_socios.ConecaoBanco()
+test_tabela = Tabela_socios.CriaTabela_socios(conexao)
+test_insert = Tabela_socios.InsertDados_socios(conexao, '200','ph','29/01/2005','999999999','5555555555','888888888','1111111111','ph1@gmail.com','(75)99999997','Maragogo','RUA DO RIO','05','casa')
+#test_clear = Banco_de_Dados.ClearDados(test_conect, '200')
+#test_updade = Banco_de_Dados.UpdateDados_NOME(test_conect, '200')
 
 #test_pagamento = Tabela_Anos.CriaTabela_2023(test_conect)
-test_pagamento_insert = Tabela_Anos.InsertDados_2023(test_conect,'201')
-test_pagamento_visualizar = Tabela_Anos.VisualizarDados_2023(test_conect)
+
+# Criando a tabela para o ano de 2023
+tabela = Tabela_Anos()
+tabela.CriaTabela_ano(conexao, 2023)
+
+# Inserindo dados para um sócio na tabela de 2023
+tabela.InsertDados_ano(conexao, '200', 2023)
+test_select = Tabela_socios.SelectDados_socios(conexao, '200')
+#Visualizando dados da tabela de 2023
+tabela.SelectTodosDados_ano(conexao, 2023)
+tabela.SelectIdDados_ano(conexao, 2023, '200')
+# Atualizando os dados do sócio na tabela de 2023
+tabela.UpdateDados_ano(conexao, 2023, '200', JANEIRO="Pago", FEVEREIRO="Pago", MARÇO="Pago")
+tabela.SelectTodosDados_ano(conexao, 2023)
+tabela.SelectIdDados_ano(conexao, 2023, '200')
+# Supondo que a conexão com o banco de dados já esteja estabelecida e a tabela de 2023 exista:
+a = '200'
+meses_nulos = Tabela_Anos.MesesComNull(conexao, 2023, a)
+meses = len(meses_nulos)
+soma = meses*12.00
+print(f"Meses nao pagos do sócio ID {a} em 2023: {meses_nulos}\n cujo total é {meses} e o valor a pagar é {soma}")
+'''
